@@ -1,0 +1,46 @@
+{
+  "name": "discord-analytics",
+  "version": "1.0.0",
+  "description": "Analytics bot for Discord",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "jest",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nukeop/discord-analytics.git"
+  },
+  "keywords": [
+    "discord"
+  ],
+  "author": "nukeop",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nukeop/discord-analytics/issues"
+  },
+  "homepage": "https://github.com/nukeop/discord-analytics#readme",
+  "dependencies": {
+    "discord-api-types": "^0.27.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "lodash": "^4.17.21",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/lodash": "^4.14.178",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5"
+  }
+}
