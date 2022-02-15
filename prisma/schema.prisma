@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Guild {
+  id        String    @id @default(uuid())
+  discordId String    @unique
+  name      String
+  owner     User      @relation("OwnedGuilds", fields: [ownerId], references: [id])
+  ownerId   String
+  members   User[]    @relation("JoinedGuilds")
+  channels  Channel[]
+}
+
+model User {
+  id               String    @id @default(uuid())
+  discordId        String    @unique
+  ownedGuilds      Guild[]   @relation("OwnedGuilds")
+  joinedGuilds     Guild[]   @relation("JoinedGuilds")
+  authoredMessages Message[]
+}
+
+model Channel {
+  id        String    @id @default(uuid())
+  discordId String    @unique
+  Guild     Guild?    @relation(fields: [guildId], references: [id])
+  guildId   String?
+  messages  Message[]
+}
+
+model Message {
+  id               String   @id @default(uuid())
+  discordId        String   @unique
+  createdTimestamp DateTime
+  content          String
+  author           User     @relation(fields: [authorId], references: [id])
+  authorId         String
+  channel          Channel  @relation(fields: [channelId], references: [id])
+  channelId        String
+}
