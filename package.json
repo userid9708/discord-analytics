@@ -5,9 +5,11 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "jest",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test": "npm run docker:up && dotenv -e .env.test -- npx prisma migrate dev --name init && NODE_ENV=test jest && npm run docker:down"
   },
   "repository": {
     "type": "git",
@@ -35,6 +37,7 @@
     "@types/lodash": "^4.14.178",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
+    "dotenv-cli": "^5.0.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",

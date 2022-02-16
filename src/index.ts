@@ -3,8 +3,7 @@ import dotenv from 'dotenv';
 
 import Logger from './logger';
 import './db';
-import { Db } from './db';
-import { pick } from 'lodash';
+import { onGuildCreate } from './controllers/guildCreateController';
 
 (async () => {
   dotenv.config();
@@ -23,31 +22,7 @@ import { pick } from 'lodash';
     Logger.info(`Message received: ${JSON.stringify(message)}`);
   });
 
-  client.on('guildCreate', async (guild) => {
-    try {
-      Logger.info('Joined guild', pick(guild, ['id', 'name']));
-      const db = await Db.getInstance();
-      const owner = await guild.fetchOwner();
-      await db.guild.create({
-        data: {
-          discordId: guild.id,
-          name: guild.name,
-          owner: {
-            connectOrCreate: {
-              where: {
-                discordId: owner.user.id,
-              },
-              create: {
-                discordId: owner.user.id,
-              },
-            },
-          },
-        },
-      });
-    } catch (error) {
-      Logger.error('Error joining guild', error);
-    }
-  });
+  client.on('guildCreate', onGuildCreate);
 
   client.login(process.env.TOKEN);
 })();
